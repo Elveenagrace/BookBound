@@ -3,8 +3,8 @@ import React from 'react'
 
 const spinner = () => {
   return (
-    <div className='animate-ping-w16 h-16 m-8 rounded-full bg-sky-600' >spinner</div>
-  )
+    <div>spinner</div>
+  );
 }
 
 export default spinner
