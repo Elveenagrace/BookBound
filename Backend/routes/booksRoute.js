@@ -73,10 +73,10 @@ router.put('/:id', async (request, response) => {
         const result = await Book.findByIdAndUpdate(id, request.body);
 
         if (!result) {
-            return response.status(404).json({ message: 'Book not found' });
+            return response.status(404).send({ message: 'Book not found' });
         }
 
-        return response.status(404).send({ message: 'Book updated Successfully' });
+        return response.status(200).send({ message: 'Book updated Successfully' });
 
     } catch (error) {
         console.log(error.message);
