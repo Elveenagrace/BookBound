@@ -4,6 +4,8 @@ import BackButton from '../components/BackButton';
 import Spinner from '../components/spinner';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+// eslint-disable-next-line no-unused-vars
+import { useSnackbar } from 'notistack';
 
 const CreateBooks = () => {
   const [title, setTitle] = useState('');
@@ -11,6 +13,7 @@ const CreateBooks = () => {
   const [publishedYear, setpublishedYear] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
   const handleSaveBook = () => {
     const data = {
       title,
@@ -22,20 +25,22 @@ const CreateBooks = () => {
       .post('http://localhost:9000/books', data)
       .then(() => {
         setLoading(false);
+        enqueueSnackbar('Book Created successfully', { variant: 'success'});
         navigate('/');
       })
       .catch((error) => {
         setLoading(false);
-        alert('An error happened. Please Check console');
+        //alert('An error happened. Please Check console');
+        enqueueSnackbar('Error', { variant: 'error' });
         console.log(error);
       });
   };
   return (
-    <div className='p-4 bg-amber-200'>
+    <div className='p-4 '>
       <BackButton />
       <h1 className='text-3xl my-4 '>Create Book</h1>
       {loading ? <Spinner /> : ''}
-      <div className='flex flex-col border-2 border-sky-400 bg-gray-400 rounded-xl w-[600px] p-4 mx-auto '>
+      <div className='flex flex-col border-2 border-sky-400 rounded-xl w-[600px] p-4 mx-auto '>
         <div className='my-4'>
           <label className='text-xl mr-4 text-gray-500'>Title</label>
           <input
@@ -72,7 +77,7 @@ const CreateBooks = () => {
       
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CreateBooks
+export default CreateBooks;
